@@ -4,6 +4,9 @@ This is a [Heroku buildpack](http://devcenter.heroku.com/articles/buildpacks) th
 allows an application to use an [stunnel](http://stunnel.org) to connect securely to
 Heroku Redis.  It is meant to be used in conjunction with other buildpacks.
 
+This version implements client-side certificate authentication and allows this buildpack to be used alongside with the
+[pgbouncer buildpack](https://github.com/teamupstart/heroku-buildpack-pgbouncer) and share certificates with it.
+
 ## Usage
 
 First, ensure your Heroku Redis addon is using a production tier plan. SSL is not
