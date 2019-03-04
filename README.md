@@ -71,6 +71,11 @@ Some settings are configurable through app config vars at runtime:
 - ``STUNNEL_ENABLED``: Default to true, enable or disable stunnel.
 - ``STUNNEL_LOGLEVEL``: Default is `notice`, set to `info` or `debug` for more verbose log output.
 
+### Upstart modifications
+
+- `STUNNEL_USE_PGBOUNCER_SSL` `true` or `yes` - use [pgbouncer buildpack](https://github.com/teamupstart/heroku-buildpack-pgbouncer.git) variables for client side 
+certificates and automatically sets `verify = 2` mode.
+
 ### Multiple Redis Instances
 
 If your application needs to connect to multiple Heroku Redis instances securely, this buildpack
