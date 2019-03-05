@@ -31,6 +31,11 @@ chmod +x $BUILD_DIR/bin/start-stunnel
 
 VENDORED_STUNNEL="vendor/stunnel"
 
+STUNNEL_USE_PGBOUNCER_SSL="no"
+if [ -f $ENV_DIR/STUNNEL_USE_PGBOUNCER_SSL ]; then
+  STUNNEL_USE_PGBOUNCER_SSL=$(cat $ENV_DIR/STUNNEL_USE_PGBOUNCER_SSL)
+fi
+
 # If we want to use the same client certificates as pgbouncer
 if [[ "$STUNNEL_USE_PGBOUNCER_SSL" == "yes" || "$STUNNEL_USE_PGBOUNCER_SSL" == "true" ]]; then
   SSLINI=$BUILD_DIR/$VENDORED_STUNNEL/ssl.ini
