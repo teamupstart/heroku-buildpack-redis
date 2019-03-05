@@ -47,7 +47,7 @@ accept = 127.0.0.1:${port}
 connect = $URI_HOST:$STUNNEL_PORT
 retry = ${STUNNEL_CONNECTION_RETRY:-"no"}
 EOFEOF
-  if [ "$STUNNEL_USE_PGBOUNCER_SSL" == "yes" || "$STUNNEL_USE_PGBOUNCER_SSL" == "true" ]; then
+  if [[ "$STUNNEL_USE_PGBOUNCER_SSL" == "yes" || "$STUNNEL_USE_PGBOUNCER_SSL" == "true" ]]; then
     echo "verify = 2" >> $CONF
   fi
 
