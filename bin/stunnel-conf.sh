@@ -35,7 +35,6 @@ do
   URI_PASS=${URI[2]}
   URI_HOST=${URI[3]}
   URI_PORT=${URI[4]}
-  STUNNEL_PORT=$((URI_PORT + 1))
 
   echo "Setting ${URL}_STUNNEL config var"
   export ${URL}_STUNNEL=$URI_SCHEME://$URI_USER:$URI_PASS@127.0.0.1:${port}
@@ -44,7 +43,7 @@ do
 [$URL]
 client = yes
 accept = 127.0.0.1:${port}
-connect = $URI_HOST:$STUNNEL_PORT
+connect = $URI_HOST:$URI_PORT
 retry = ${STUNNEL_CONNECTION_RETRY:-"no"}
 EOFEOF
   if [[ "$STUNNEL_USE_PGBOUNCER_SSL" == "yes" || "$STUNNEL_USE_PGBOUNCER_SSL" == "true" ]]; then
