@@ -3,7 +3,7 @@
 
 # Configure environment
 set -e            # fail fast
-set -o pipefail   # don't ignore exit codes when piping output
+set -o pipefail   # dont ignore exit codes when piping output
 # set -x            # enable debugging
 
 # Clean up leaking environment
@@ -26,38 +26,9 @@ cp "$BUILDPACK_DIR/bin/start-stunnel" $BUILD_DIR/bin/
 cp "$BUILDPACK_DIR/bin/start-stunnel-i" $BUILD_DIR/bin/
 chmod +x $BUILD_DIR/bin/start-stunnel
 
-VENDORED_STUNNEL="vendor/stunnel"
-
 STUNNEL_USE_PGBOUNCER_SSL="no"
 if [ -f $ENV_DIR/STUNNEL_USE_PGBOUNCER_SSL ]; then
   STUNNEL_USE_PGBOUNCER_SSL=$(cat $ENV_DIR/STUNNEL_USE_PGBOUNCER_SSL)
-fi
-
-# If we want to use the same client certificates as pgbouncer
-if [[ "$STUNNEL_USE_PGBOUNCER_SSL" == "yes" || "$STUNNEL_USE_PGBOUNCER_SSL" == "true" ]]; then
-  SSLINI=$BUILD_DIR/$VENDORED_STUNNEL/ssl.ini
-  SSLDIR=$BUILD_DIR/$VENDORED_STUNNEL/ssl
-  if [ -f $ENV_DIR/PGBOUNCER_SERVER_CAFILE ]; then
-      echo "-----> SSL: Moving the server CA file into app/vendor/stunnel/ssl"
-      mkdir -p $SSLDIR
-      cp $ENV_DIR/PGBOUNCER_SERVER_CAFILE $SSLDIR/ca.crt
-      echo "CAfile = /app/$VENDORED_STUNNEL/ssl/ca.crt" >> $SSLINI
-      chmod 600 $SSLDIR/ca.crt
-  fi
-  if [ -f $ENV_DIR/PGBOUNCER_SERVER_CERTFILE ]; then
-      echo "-----> SSL: Moving the server certificate file into app/vendor/stunnel/ssl"
-      mkdir -p $SSLDIR
-      cp $ENV_DIR/PGBOUNCER_SERVER_CERTFILE $SSLDIR/client.crt
-      echo "cert = /app/$VENDORED_STUNNEL/ssl/client.crt" >> $SSLINI
-      chmod 600 $SSLDIR/client.crt
-  fi
-  if [ -f $ENV_DIR/PGBOUNCER_SERVER_KEYFILE ]; then
-      echo "-----> SSL: Moving the server certificate key file into app/vendor/stunnel/ssl"
-      mkdir -p $SSLDIR
-      cp $ENV_DIR/PGBOUNCER_SERVER_KEYFILE $SSLDIR/client.key
-      echo "key = /app/$VENDORED_STUNNEL/ssl/client.key" >> $SSLINI
-      chmod 600 $SSLDIR/client.key
-  fi
 fi
 
 echo "-----> stunnel done"

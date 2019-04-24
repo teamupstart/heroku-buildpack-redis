@@ -75,6 +75,7 @@ Some settings are configurable through app config vars at runtime:
 
 - `STUNNEL_USE_PGBOUNCER_SSL` `true` or `yes` - use [pgbouncer buildpack](https://github.com/teamupstart/heroku-buildpack-pgbouncer.git) variables for client side 
 certificates and automatically sets `verify = 2` mode.
+- `STUNNEL_SSL_VERIFY_LEVEL`  `0`-`4`, see stunnel documentation on `verify` option. Option is skipped if no value is provided.
 
 ### Multiple Redis Instances
 
