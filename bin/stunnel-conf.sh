@@ -56,9 +56,10 @@ do
   URI_PASS=${URI[2]}
   URI_HOST=${URI[3]}
   URI_PORT=${URI[4]}
+  URI_PATH=${URI[5]}
 
   echo "Setting ${URL}_STUNNEL config var"
-  export ${URL}_STUNNEL=$URI_SCHEME://$URI_USER:$URI_PASS@127.0.0.1:${port}
+  export ${URL}_STUNNEL=$URI_SCHEME://$URI_USER:$URI_PASS@127.0.0.1:${port}${URI_PATH}
 
   cat >> $CONF << EOFEOF
 [$URL]
